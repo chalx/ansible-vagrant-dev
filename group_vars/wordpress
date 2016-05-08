@@ -1,0 +1,5 @@
+mariadb:
+  user: "wordpress"
+  password: "wordpress"
+  dbname: "wordpress"
+  host: "localhost"

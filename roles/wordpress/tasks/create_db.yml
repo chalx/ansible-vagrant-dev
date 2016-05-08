@@ -1,0 +1,19 @@
+---
+- name: Check if database exists
+  mysql_db_exists:
+    name="{{ mariadb.dbname }}"
+    user="{{ mariadb.user }}"
+    password="{{ mariadb.password }}"
+  register: dbi
+
+- name: Copy wordpress clean sql file
+  copy: src=wordpress_clean.sql dest={{ wordpress.sqlCleanPath }}
+  when: dbi.exists == False or ({{ dbForceInstall|default(False)|bool }})
+
+- name: Create wordpress database
+  mysql_db: state=present name=wordpress
+  when: dbi.exists == False or ({{ dbForceInstall|default(False)|bool }})
+
+- name: Execute wordpress clean query
+  mysql_db: state=import name=wordpress target={{ wordpress.sqlCleanPath }}
+  when: dbi.exists == False or ({{ dbForceInstall|default(False)|bool }})

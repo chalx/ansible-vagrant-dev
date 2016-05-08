@@ -1,0 +1,3 @@
+---
+- include: install_deps.yml
+- include: install_mariadb.yml

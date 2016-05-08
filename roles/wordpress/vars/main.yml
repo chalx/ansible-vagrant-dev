@@ -1,0 +1,7 @@
+---
+wordpress:
+  downloadUrl: "https://wordpress.org/latest.tar.gz"
+  installationDir: /var/www/html
+  dir: /var/www/html/wordpress/
+  downloadPath: /tmp/wordpress.tar.gz
+  sqlCleanPath: /tmp/wordpress_clean.sql

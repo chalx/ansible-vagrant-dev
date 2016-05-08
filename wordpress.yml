@@ -1,0 +1,7 @@
+---
+- name: Install wordpress
+  hosts: wordpress
+  sudo: true
+  roles:
+    - common
+    - wordpress
