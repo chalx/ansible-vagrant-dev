@@ -6,7 +6,6 @@ Vagrant.configure(2) do |config|
   config.vm
   config.vm.provision "shell", path: "scripts/ansible.sh"
   config.vm.network "forwarded_port", guest: 80, host: 80
-  config.vm.synced_folder "wordpress", "/home/vagrant/wordpress", :owner => "www-data", :group => "www-data"
   config.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
   end
