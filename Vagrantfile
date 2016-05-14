@@ -16,6 +16,7 @@ Vagrant.configure(2) do |config|
       ansible.extra_vars = {ansible_ssh_user: 'vagrant', vagrant: true}
       ansible.verbose = 'v'
       ansible.playbook = "wordpress.yml"
+      ansible.inventory_path = "development"
     end
   end
 end
