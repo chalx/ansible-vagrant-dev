@@ -1,26 +1,33 @@
 ---
 - name: Check if wordpress is installed
-  stat: 
+  stat:
     path: "{{ wordpress.dir }}"
   register: wordpressInd
 
+- name: Check if wp-config.php exists
+  stat:
+    path: "{{ wordpress.dir }}wp-config.php"
+  register: wpConfig
+
 - name: Download latest wordpress
-  get_url: 
+  get_url:
     url: "{{ wordpress.downloadUrl }}"
     dest: "{{ wordpress.downloadPath }}"
   when: (wordpressInd.stat.exists == False) or ({{ forceInstall|default(False)|bool }})
 
 - name: Unpack wordpress
-  unarchive: 
+  unarchive:
     src: "{{ wordpress.downloadPath }}"
-    dest: "{{ wordpress.installationDir }}" 
-    owner: www-data 
-    group: www-data
+    dest: "{{ wordpress.installationDir }}"
   when: (wordpressInd.stat.exists == False) or ({{ forceInstall|default(False)|bool }})
 
-- name: Copy wordpress config
-  template: 
-    src: wp_config.php.j2 
-    dest: "{{ wordpress.dir }}wp-config.php" 
+- name: Copy wordpress config to tmp
+  template:
+    src: wp_config.php.j2
+    dest: "/tmp/wp-config.php"
     force: yes
-  when: (wordpressInd.stat.exists == False) or ({{ forceInstall|default(False)|bool }})
+  when: wpConfig.stat.exists == False
+
+- name: Copy from /tmp/wp-config.php to /vagrant/wordpress
+  command: mv "/tmp/wp-config.php" "{{ wordpress.dir }}/wp-config.php"
+  when: wpConfig.stat.exists == False
