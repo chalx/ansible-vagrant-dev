@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+  DocumentRoot "{{ wordpress.dir }}"
+  ServerName wordpress.local
+  ErrorLog "{{ wordpress.errorLogs }}"
+  CustomLog "{{ wordpress.combinedLogs }}" combined
+
+  <Directory />
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Require all granted
+    Allow from all
+  </Directory>
+</VirtualHost>

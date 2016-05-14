@@ -1,0 +1,10 @@
+---
+- name: Copy wordpress virtualhost to apache
+  template: 
+    src: wordpress.host.j2 
+    dest: "{{ apache.virtualHostsPath }}wordpress.conf"
+
+- name: Enable wordpress virtualhost
+  command: a2ensite wordpress
+  notify:
+    - restart apache

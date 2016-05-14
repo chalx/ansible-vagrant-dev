@@ -1,7 +1,11 @@
 ---
 wordpress:
   downloadUrl: "https://wordpress.org/latest.tar.gz"
-  installationDir: /var/www/html
-  dir: /var/www/html/wordpress/
+  installationDir: /vagrant/
+  dir: /vagrant/wordpress/
   downloadPath: /tmp/wordpress.tar.gz
   sqlCleanPath: /tmp/wordpress_clean.sql
+  errorLogs: /vagrant/wordpress.error.log
+  combinedLogs: /vagrant/wordpress.combined.log
+apache:
+  virtualHostsPath: /etc/apache2/sites-available/

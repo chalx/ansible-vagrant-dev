@@ -1,0 +1,4 @@
+---
+- name: Migrate wordpress database
+  migration: name="wordpress"
+  tags: migrate
