@@ -24,8 +24,3 @@
     dest: "{{ wordpress.dir }}wp-config.php" 
     force: yes
   when: (wordpressInd.stat.exists == False) or ({{ forceInstall|default(False)|bool }})
-
-- name: Create uploads dir
-  raw: chmod a+w "{{ wordpress.dir }}wp-content/uploads/"
-  args:
-    chdir: "{{ wordpress.dir }}"

@@ -19,19 +19,24 @@
 
 - name: Set PHP date.timezone
   ini_file:
-    dest=/etc/php5/{{ item }}/php.ini
-    section="Date"
-    option="date.timezone"
-    value="Europe/Bucharest"
-    state=present
+    dest: /etc/php5/{{ item }}/php.ini
+    section: "Date"
+    option: "date.timezone"
+    value: "Europe/Bucharest"
+    state: present
   with_items:
     - apache2
     - cli
 
 - name: Ensure apache is running and enable it at boot
-  service: name=apache2 state=started enabled=yes
+  service: 
+    name: apache2 
+    state: started 
+    enabled: yes
 
 - name: Enable apache mod rewrite
-  apache2_module: name=rewrite state=present
+  apache2_module: 
+    name: rewrite 
+    state: present
   notify:
     - restart apache

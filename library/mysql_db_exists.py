@@ -37,7 +37,6 @@ def main():
         conn = MySQLdb.connect(host=login_host, user=login_user, passwd=login_password, port=login_port)
         cursor = conn.cursor()
         module.exit_json(exists=db_exists(cursor, dbname))
-        print "Test"
     except Exception, e:
         module.fail_json(
             msg="unable to connect to database, check login_user and login_password are correct. Exception message: %s" % e)
